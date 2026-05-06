@@ -1,0 +1,7 @@
+# Pastas de Cache do Python e do Pytest
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Ambiente Virtual
+venv/
