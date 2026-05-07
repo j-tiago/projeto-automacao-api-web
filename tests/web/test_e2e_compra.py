@@ -20,9 +20,9 @@ def test_fluxo_compra_e2e(setup_teardown):
         botao_add = wait.until(EC.element_to_be_clickable((By.ID, "add-to-cart-sauce-labs-backpack")))
         botao_add.click()
         
-        # 4. Ir para o carrinho
-        carrinho = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "shopping_cart_link")))
-        carrinho.click()
+        # 4. Ir para o carrinho (A MÁGICA ACONTECE AQUI - Clique via JavaScript)
+        carrinho = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "shopping_cart_link")))
+        driver.execute_script("arguments[0].click();", carrinho)
         
         # 5. Ir para o Checkout
         botao_checkout = wait.until(EC.element_to_be_clickable((By.ID, "checkout")))
@@ -46,6 +46,5 @@ def test_fluxo_compra_e2e(setup_teardown):
         assert mensagem_sucesso == "Thank you for your order!"
         
     except Exception as erro:
-        # SE QUALQUER COISA DER ERRO, ELE TIRA O PRINT AQUI!
         driver.save_screenshot("erro_tela.png")
-        raise erro # Repassa o erro para o teste constar como falho
+        raise erro
