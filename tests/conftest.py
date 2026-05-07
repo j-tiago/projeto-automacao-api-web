@@ -6,7 +6,7 @@ def setup_teardown():
     options = webdriver.ChromeOptions()
     
     # 1. Configurações essenciais para rodar na Pipeline (GitHub Actions / Linux)
-    #options.add_argument('--headless') # Roda o navegador em segundo plano (sem interface gráfica)
+    options.add_argument('--headless') # Roda o navegador em segundo plano (sem interface gráfica)
     options.add_argument('--no-sandbox') # Necessário para rodar no Ubuntu do GitHub Actions
     options.add_argument('--disable-dev-shm-usage') # Evita problemas de limite de memória no servidor
     options.add_argument('--window-size=1920,1080') # Garante o tamanho da tela para não esconder botões
