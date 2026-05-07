@@ -60,6 +60,7 @@ cd projeto-automacao
 python -m venv venv
 .\venv\Scripts\activate
 pip install -r requirements.txt
+```
 
 ### 🐧 Linux e MacOS
 ```bash
@@ -68,10 +69,12 @@ cd projeto-automacao
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
 
 ---
 
 📸 Evidências e Execução dos Testes
+```
 O projeto utiliza o framework Pytest para orquestração. Abaixo estão os comandos de execução e as evidências reais de funcionamento da suíte.
 
 1. Suíte Completa (API + Web E2E)
@@ -94,12 +97,20 @@ Executa exclusivamente a automação de interface. (Por padrão, executa em modo
 Bash
 pytest tests/web/ -v
 ![Execução Web](docs/teste_web.png)
-
+```
 ---
 
+
 🔄 Integração Contínua (CI/CD) e Resiliência
+```
 Este projeto conta com uma esteira de Integração Contínua ativa via GitHub Actions.
 A cada push realizado na branch main, um servidor Ubuntu é provisionado, o ambiente é configurado e a suíte completa de testes é executada.
+```
+---
+
 
 🛡️ Mecanismo de Resiliência (Artifacts):
+```
 Visando facilitar o debugging no ambiente de CI, a automação Web possui um mecanismo de captura de tela embutido (driver.save_screenshot). Caso ocorra qualquer falha durante a jornada de compra, a pipeline irá capturar o momento exato do erro e disponibilizar a imagem para download na aba Artifacts do GitHub, reduzindo drasticamente o tempo de investigação.
+```
+---
