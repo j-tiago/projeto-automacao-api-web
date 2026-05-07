@@ -20,13 +20,14 @@ def test_fluxo_compra_e2e(setup_teardown):
         botao_add = wait.until(EC.element_to_be_clickable((By.ID, "add-to-cart-sauce-labs-backpack")))
         botao_add.click()
         
-        # 4. Ir para o carrinho (A MÁGICA ACONTECE AQUI - Clique via JavaScript)
+        # 4. Ir para o carrinho (Bypass com JS)
         carrinho = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "shopping_cart_link")))
         driver.execute_script("arguments[0].click();", carrinho)
         
-        # 5. Ir para o Checkout
-        botao_checkout = wait.until(EC.element_to_be_clickable((By.ID, "checkout")))
-        botao_checkout.click()
+        # 5. Ir para o Checkout (NOVIDADE: Scroll para garantir que o botão não fique cortado)
+        botao_checkout = wait.until(EC.presence_of_element_located((By.ID, "checkout")))
+        driver.execute_script("arguments[0].scrollIntoView(true);", botao_checkout) # Rola a tela até o botão
+        wait.until(EC.element_to_be_clickable((By.ID, "checkout"))).click() # Agora sim, clica!
         
         # 6. Preencher formulário
         campo_nome = wait.until(EC.visibility_of_element_located((By.ID, "first-name")))
@@ -34,12 +35,14 @@ def test_fluxo_compra_e2e(setup_teardown):
         driver.find_element(By.ID, "last-name").send_keys("Desenvolvedor")
         driver.find_element(By.ID, "postal-code").send_keys("64000000")
         
-        botao_continue = wait.until(EC.element_to_be_clickable((By.ID, "continue")))
-        botao_continue.click()
+        botao_continue = wait.until(EC.presence_of_element_located((By.ID, "continue")))
+        driver.execute_script("arguments[0].scrollIntoView(true);", botao_continue)
+        wait.until(EC.element_to_be_clickable((By.ID, "continue"))).click()
         
         # 7. Finalizar compra
-        botao_finish = wait.until(EC.element_to_be_clickable((By.ID, "finish")))
-        botao_finish.click()
+        botao_finish = wait.until(EC.presence_of_element_located((By.ID, "finish")))
+        driver.execute_script("arguments[0].scrollIntoView(true);", botao_finish)
+        wait.until(EC.element_to_be_clickable((By.ID, "finish"))).click()
         
         # 8. Asserção Final
         mensagem_sucesso = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "complete-header"))).text
