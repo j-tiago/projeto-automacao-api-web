@@ -35,3 +35,11 @@ jobs:
     # Passo 5: Rodar os testes Web
     - name: Rodar Testes Web (E2E)
       run: pytest tests/web/ -v
+
+      # Passo 6: Salvar o print se o teste web falhar
+    - name: Salvar Print do Erro
+      uses: actions/upload-artifact@v4
+      if: failure() # Só roda esse passo se a pipeline ficar vermelha
+      with:
+        name: print-do-erro-web
+        path: erro_tela.png
